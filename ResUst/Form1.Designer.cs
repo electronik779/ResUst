@@ -30,21 +30,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             groupBox1 = new GroupBox();
-            textBox5 = new TextBox();
+            k2t = new TextBox();
             label9 = new Label();
-            textBox6 = new TextBox();
+            k1t = new TextBox();
             label10 = new Label();
             label5 = new Label();
-            textBox3 = new TextBox();
+            Trast = new TextBox();
             label6 = new Label();
             label7 = new Label();
-            textBox4 = new TextBox();
+            dtt = new TextBox();
             label8 = new Label();
             label3 = new Label();
-            textBox2 = new TextBox();
+            Hctt = new TextBox();
             label4 = new Label();
             label2 = new Label();
-            textBox1 = new TextBox();
+            Qdt = new TextBox();
             label1 = new Label();
             toolStrip1 = new ToolStrip();
             SaveData_button = new ToolStripButton();
@@ -58,16 +58,16 @@
             groupBox2 = new GroupBox();
             Fkp = new Label();
             pictureBox1 = new PictureBox();
-            textBox11 = new TextBox();
+            krt = new TextBox();
             label18 = new Label();
             groupBox3 = new GroupBox();
             label14 = new Label();
             label11 = new Label();
-            textBox12 = new TextBox();
+            knt = new TextBox();
             label20 = new Label();
-            textBox7 = new TextBox();
+            Fdt = new TextBox();
             label12 = new Label();
-            textBox8 = new TextBox();
+            Ldt = new TextBox();
             label13 = new Label();
             formsPlot_k1Fkp = new ScottPlot.WinForms.FormsPlot();
             formsPlot_Fkp = new ScottPlot.WinForms.FormsPlot();
@@ -84,21 +84,21 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(textBox5);
+            groupBox1.Controls.Add(k2t);
             groupBox1.Controls.Add(label9);
-            groupBox1.Controls.Add(textBox6);
+            groupBox1.Controls.Add(k1t);
             groupBox1.Controls.Add(label10);
             groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(textBox3);
+            groupBox1.Controls.Add(Trast);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(textBox4);
+            groupBox1.Controls.Add(dtt);
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(textBox2);
+            groupBox1.Controls.Add(Hctt);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(Qdt);
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(15, 353);
             groupBox1.Name = "groupBox1";
@@ -107,13 +107,14 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Параметры расчета";
             // 
-            // textBox5
+            // k2t
             // 
-            textBox5.Location = new Point(184, 185);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(52, 27);
-            textBox5.TabIndex = 15;
-            textBox5.TextAlign = HorizontalAlignment.Right;
+            k2t.Location = new Point(184, 185);
+            k2t.Name = "k2t";
+            k2t.Size = new Size(52, 27);
+            k2t.TabIndex = 15;
+            k2t.TextAlign = HorizontalAlignment.Right;
+            k2t.TextChanged += k2t_TextChanged;
             // 
             // label9
             // 
@@ -124,13 +125,14 @@
             label9.TabIndex = 14;
             label9.Text = "Пониж. коэф. K₂ к Fкр";
             // 
-            // textBox6
+            // k1t
             // 
-            textBox6.Location = new Point(184, 152);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(52, 27);
-            textBox6.TabIndex = 13;
-            textBox6.TextAlign = HorizontalAlignment.Right;
+            k1t.Location = new Point(184, 152);
+            k1t.Name = "k1t";
+            k1t.Size = new Size(52, 27);
+            k1t.TabIndex = 13;
+            k1t.TextAlign = HorizontalAlignment.Right;
+            k1t.TextChanged += k1t_TextChanged;
             // 
             // label10
             // 
@@ -150,13 +152,14 @@
             label5.TabIndex = 11;
             label5.Text = "c";
             // 
-            // textBox3
+            // Trast
             // 
-            textBox3.Location = new Point(184, 119);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(52, 27);
-            textBox3.TabIndex = 10;
-            textBox3.TextAlign = HorizontalAlignment.Right;
+            Trast.Location = new Point(184, 119);
+            Trast.Name = "Trast";
+            Trast.Size = new Size(52, 27);
+            Trast.TabIndex = 10;
+            Trast.TextAlign = HorizontalAlignment.Right;
+            Trast.TextChanged += Trast_TextChanged;
             // 
             // label6
             // 
@@ -176,13 +179,14 @@
             label7.TabIndex = 8;
             label7.Text = "с";
             // 
-            // textBox4
+            // dtt
             // 
-            textBox4.Location = new Point(184, 86);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(52, 27);
-            textBox4.TabIndex = 7;
-            textBox4.TextAlign = HorizontalAlignment.Right;
+            dtt.Location = new Point(184, 86);
+            dtt.Name = "dtt";
+            dtt.Size = new Size(52, 27);
+            dtt.TabIndex = 7;
+            dtt.TextAlign = HorizontalAlignment.Right;
+            dtt.TextChanged += dtt_TextChanged;
             // 
             // label8
             // 
@@ -202,13 +206,14 @@
             label3.TabIndex = 5;
             label3.Text = "м";
             // 
-            // textBox2
+            // Hctt
             // 
-            textBox2.Location = new Point(184, 53);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(52, 27);
-            textBox2.TabIndex = 4;
-            textBox2.TextAlign = HorizontalAlignment.Right;
+            Hctt.Location = new Point(184, 53);
+            Hctt.Name = "Hctt";
+            Hctt.Size = new Size(52, 27);
+            Hctt.TabIndex = 4;
+            Hctt.TextAlign = HorizontalAlignment.Right;
+            Hctt.TextChanged += Hctt_TextChanged;
             // 
             // label4
             // 
@@ -228,13 +233,14 @@
             label2.TabIndex = 2;
             label2.Text = "м³/с";
             // 
-            // textBox1
+            // Qdt
             // 
-            textBox1.Location = new Point(184, 20);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(52, 27);
-            textBox1.TabIndex = 1;
-            textBox1.TextAlign = HorizontalAlignment.Right;
+            Qdt.Location = new Point(184, 20);
+            Qdt.Name = "Qdt";
+            Qdt.Size = new Size(52, 27);
+            Qdt.TabIndex = 1;
+            Qdt.TextAlign = HorizontalAlignment.Right;
+            Qdt.TextChanged += Qdt_TextChanged;
             // 
             // label1
             // 
@@ -263,6 +269,7 @@
             SaveData_button.Name = "SaveData_button";
             SaveData_button.Size = new Size(29, 24);
             SaveData_button.Text = "Сохранить исходные данные";
+            SaveData_button.Click += SaveData_button_Click;
             // 
             // OpenData_button
             // 
@@ -272,6 +279,7 @@
             OpenData_button.Name = "OpenData_button";
             OpenData_button.Size = new Size(29, 24);
             OpenData_button.Text = "Открыть исходные данные";
+            OpenData_button.Click += OpenData_button_Click;
             // 
             // Execute_button
             // 
@@ -281,6 +289,7 @@
             Execute_button.Name = "Execute_button";
             Execute_button.Size = new Size(29, 24);
             Execute_button.Text = "Выполнить расчет";
+            Execute_button.Click += Execute_button_Click;
             // 
             // SaveResults_button
             // 
@@ -290,6 +299,7 @@
             SaveResults_button.Name = "SaveResults_button";
             SaveResults_button.Size = new Size(29, 24);
             SaveResults_button.Text = "Сохранить результат расчета";
+            SaveResults_button.Click += SaveResults_button_Click;
             // 
             // Help_button
             // 
@@ -300,6 +310,7 @@
             Help_button.Name = "Help_button";
             Help_button.Size = new Size(29, 24);
             Help_button.Text = "ПАМАГИТЕ!!!";
+            Help_button.Click += Help_button_Click;
             // 
             // OpenData
             // 
@@ -309,7 +320,7 @@
             // 
             groupBox2.Controls.Add(Fkp);
             groupBox2.Controls.Add(pictureBox1);
-            groupBox2.Controls.Add(textBox11);
+            groupBox2.Controls.Add(krt);
             groupBox2.Controls.Add(label18);
             groupBox2.Location = new Point(9, 171);
             groupBox2.Name = "groupBox2";
@@ -337,13 +348,14 @@
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
-            // textBox11
+            // krt
             // 
-            textBox11.Location = new Point(190, 56);
-            textBox11.Name = "textBox11";
-            textBox11.Size = new Size(52, 27);
-            textBox11.TabIndex = 4;
-            textBox11.TextAlign = HorizontalAlignment.Right;
+            krt.Location = new Point(190, 56);
+            krt.Name = "krt";
+            krt.Size = new Size(52, 27);
+            krt.TabIndex = 4;
+            krt.TextAlign = HorizontalAlignment.Right;
+            krt.TextChanged += krt_TextChanged;
             // 
             // label18
             // 
@@ -358,11 +370,11 @@
             // 
             groupBox3.Controls.Add(label14);
             groupBox3.Controls.Add(label11);
-            groupBox3.Controls.Add(textBox12);
+            groupBox3.Controls.Add(knt);
             groupBox3.Controls.Add(label20);
-            groupBox3.Controls.Add(textBox7);
+            groupBox3.Controls.Add(Fdt);
             groupBox3.Controls.Add(label12);
-            groupBox3.Controls.Add(textBox8);
+            groupBox3.Controls.Add(Ldt);
             groupBox3.Controls.Add(label13);
             groupBox3.Location = new Point(9, 28);
             groupBox3.Name = "groupBox3";
@@ -389,13 +401,14 @@
             label11.TabIndex = 7;
             label11.Text = "м";
             // 
-            // textBox12
+            // knt
             // 
-            textBox12.Location = new Point(190, 98);
-            textBox12.Name = "textBox12";
-            textBox12.Size = new Size(52, 27);
-            textBox12.TabIndex = 6;
-            textBox12.TextAlign = HorizontalAlignment.Right;
+            knt.Location = new Point(190, 98);
+            knt.Name = "knt";
+            knt.Size = new Size(52, 27);
+            knt.TabIndex = 6;
+            knt.TextAlign = HorizontalAlignment.Right;
+            knt.TextChanged += knt_TextChanged;
             // 
             // label20
             // 
@@ -406,13 +419,14 @@
             label20.TabIndex = 5;
             label20.Text = "Коэффициент\r\nшероховатости n";
             // 
-            // textBox7
+            // Fdt
             // 
-            textBox7.Location = new Point(190, 53);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(52, 27);
-            textBox7.TabIndex = 4;
-            textBox7.TextAlign = HorizontalAlignment.Right;
+            Fdt.Location = new Point(190, 53);
+            Fdt.Name = "Fdt";
+            Fdt.Size = new Size(52, 27);
+            Fdt.TabIndex = 4;
+            Fdt.TextAlign = HorizontalAlignment.Right;
+            Fdt.TextChanged += Fdt_TextChanged;
             // 
             // label12
             // 
@@ -423,13 +437,14 @@
             label12.TabIndex = 3;
             label12.Text = "Площадь Fд";
             // 
-            // textBox8
+            // Ldt
             // 
-            textBox8.Location = new Point(190, 20);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(52, 27);
-            textBox8.TabIndex = 1;
-            textBox8.TextAlign = HorizontalAlignment.Right;
+            Ldt.Location = new Point(190, 20);
+            Ldt.Name = "Ldt";
+            Ldt.Size = new Size(52, 27);
+            Ldt.TabIndex = 1;
+            Ldt.TextAlign = HorizontalAlignment.Right;
+            Ldt.TextChanged += Ldt_TextChanged;
             // 
             // label13
             // 
@@ -468,7 +483,7 @@
             // 
             label15.AutoSize = true;
             label15.BackColor = Color.Transparent;
-            label15.Location = new Point(347, 234);
+            label15.Location = new Point(530, 234);
             label15.Name = "label15";
             label15.Size = new Size(58, 20);
             label15.TabIndex = 7;
@@ -478,7 +493,7 @@
             // 
             label16.AutoSize = true;
             label16.BackColor = Color.Transparent;
-            label16.Location = new Point(347, 48);
+            label16.Location = new Point(521, 48);
             label16.Name = "label16";
             label16.Size = new Size(76, 20);
             label16.TabIndex = 8;
@@ -488,7 +503,7 @@
             // 
             label17.AutoSize = true;
             label17.BackColor = Color.Transparent;
-            label17.Location = new Point(347, 420);
+            label17.Location = new Point(521, 420);
             label17.Name = "label17";
             label17.Size = new Size(77, 20);
             label17.TabIndex = 9;
@@ -530,36 +545,36 @@
 
         private GroupBox groupBox1;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox Qdt;
         private Label label1;
         private ToolStrip toolStrip1;
         private SaveFileDialog SaveData;
         private OpenFileDialog OpenData;
         private SaveFileDialog SaveResults;
-        private TextBox textBox5;
+        private TextBox k2t;
         private Label label9;
-        private TextBox textBox6;
+        private TextBox k1t;
         private Label label10;
         private Label label5;
-        private TextBox textBox3;
+        private TextBox Trast;
         private Label label6;
         private Label label7;
-        private TextBox textBox4;
+        private TextBox dtt;
         private Label label8;
         private Label label3;
-        private TextBox textBox2;
+        private TextBox Hctt;
         private Label label4;
         private GroupBox groupBox2;
-        private TextBox textBox11;
+        private TextBox krt;
         private Label label18;
         private Label Fkp;
         private PictureBox pictureBox1;
         private GroupBox groupBox3;
-        private TextBox textBox12;
+        private TextBox knt;
         private Label label20;
-        private TextBox textBox7;
+        private TextBox Fdt;
         private Label label12;
-        private TextBox textBox8;
+        private TextBox Ldt;
         private Label label13;
         private ToolStripButton SaveData_button;
         private ToolStripButton OpenData_button;
