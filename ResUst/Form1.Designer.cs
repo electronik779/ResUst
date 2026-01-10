@@ -112,7 +112,7 @@
             k2t.Location = new Point(184, 185);
             k2t.Name = "k2t";
             k2t.Size = new Size(52, 27);
-            k2t.TabIndex = 15;
+            k2t.TabIndex = 10;
             k2t.TextAlign = HorizontalAlignment.Right;
             k2t.TextChanged += k2t_TextChanged;
             // 
@@ -130,7 +130,7 @@
             k1t.Location = new Point(184, 152);
             k1t.Name = "k1t";
             k1t.Size = new Size(52, 27);
-            k1t.TabIndex = 13;
+            k1t.TabIndex = 9;
             k1t.TextAlign = HorizontalAlignment.Right;
             k1t.TextChanged += k1t_TextChanged;
             // 
@@ -157,7 +157,7 @@
             Trast.Location = new Point(184, 119);
             Trast.Name = "Trast";
             Trast.Size = new Size(52, 27);
-            Trast.TabIndex = 10;
+            Trast.TabIndex = 8;
             Trast.TextAlign = HorizontalAlignment.Right;
             Trast.TextChanged += Trast_TextChanged;
             // 
@@ -211,7 +211,7 @@
             Hctt.Location = new Point(184, 53);
             Hctt.Name = "Hctt";
             Hctt.Size = new Size(52, 27);
-            Hctt.TabIndex = 4;
+            Hctt.TabIndex = 6;
             Hctt.TextAlign = HorizontalAlignment.Right;
             Hctt.TextChanged += Hctt_TextChanged;
             // 
@@ -238,7 +238,7 @@
             Qdt.Location = new Point(184, 20);
             Qdt.Name = "Qdt";
             Qdt.Size = new Size(52, 27);
-            Qdt.TabIndex = 1;
+            Qdt.TabIndex = 5;
             Qdt.TextAlign = HorizontalAlignment.Right;
             Qdt.TextChanged += Qdt_TextChanged;
             // 
@@ -406,7 +406,7 @@
             knt.Location = new Point(190, 98);
             knt.Name = "knt";
             knt.Size = new Size(52, 27);
-            knt.TabIndex = 6;
+            knt.TabIndex = 3;
             knt.TextAlign = HorizontalAlignment.Right;
             knt.TextChanged += knt_TextChanged;
             // 
@@ -424,7 +424,7 @@
             Fdt.Location = new Point(190, 53);
             Fdt.Name = "Fdt";
             Fdt.Size = new Size(52, 27);
-            Fdt.TabIndex = 4;
+            Fdt.TabIndex = 2;
             Fdt.TextAlign = HorizontalAlignment.Right;
             Fdt.TextChanged += Fdt_TextChanged;
             // 
