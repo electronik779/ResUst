@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ResUst
 {
@@ -280,38 +281,44 @@ namespace ResUst
             min2--;
             min3--;
 
-            var z1 = formsPlot_k1Fkp.Plot.Add.Scatter(dataX, dataY1);
-            z1.MarkerSize = markerSize;
-            z1.LineWidth = lineWidth;
-            formsPlot_k1Fkp.Plot.Axes.SetLimitsX(0, (double)Tras);
-            formsPlot_k1Fkp.Plot.Axes.SetLimitsY(min1, max1);
-            formsPlot_k1Fkp.Plot.Axes.Left.Label.Text = "Уровень в УР, м";
-            formsPlot_k1Fkp.Plot.Axes.Left.Label.Bold = false;
-            formsPlot_k1Fkp.Plot.Axes.Bottom.Label.Text = "Время, с";
-            formsPlot_k1Fkp.Plot.Axes.Bottom.Label.Bold = false;
-            formsPlot_k1Fkp.Refresh();
+            BuildChart_1line(formsPlot_k1Fkp, dataX, dataY1,
+                    "", 2, 0,
+                    "Время, с", 0, (double)Tras,
+                    "Уровень в УР, м", min1, max1);
 
-            var z2 = formsPlot_Fkp.Plot.Add.Scatter(dataX, dataY2);
-            z2.MarkerSize = markerSize;
-            z2.LineWidth = lineWidth;
-            formsPlot_Fkp.Plot.Axes.SetLimitsX(0, (double)Tras);
-            formsPlot_Fkp.Plot.Axes.SetLimitsY(min2, max2);
-            formsPlot_Fkp.Plot.Axes.Left.Label.Text = "Уровень в УР, м";
-            formsPlot_Fkp.Plot.Axes.Left.Label.Bold = false;
-            formsPlot_Fkp.Plot.Axes.Bottom.Label.Text = "Время, с";
-            formsPlot_Fkp.Plot.Axes.Bottom.Label.Bold = false;
-            formsPlot_Fkp.Refresh();
+            BuildChart_1line(formsPlot_Fkp, dataX, dataY2,
+                    "", 2, 0,
+                    "Время, с", 0, (double)Tras,
+                    "Уровень в УР, м", min2, max2);
 
-            var z3 = formsPlot_k2Fkp.Plot.Add.Scatter(dataX, dataY3);
-            z3.MarkerSize = markerSize;
-            z3.LineWidth = lineWidth;
-            formsPlot_k2Fkp.Plot.Axes.SetLimitsX(0, (double)Tras);
-            formsPlot_k2Fkp.Plot.Axes.SetLimitsY(min3, max3);
-            formsPlot_k2Fkp.Plot.Axes.Left.Label.Text = "Уровень в УР, м";
-            formsPlot_k2Fkp.Plot.Axes.Left.Label.Bold = false;
-            formsPlot_k2Fkp.Plot.Axes.Bottom.Label.Text = "Время, с";
-            formsPlot_k2Fkp.Plot.Axes.Bottom.Label.Bold = false;
-            formsPlot_k2Fkp.Refresh();
+            BuildChart_1line(formsPlot_k2Fkp, dataX, dataY3,
+                    "", 2, 0,
+                    "Время, с", 0, (double)Tras,
+                    "Уровень в УР, м", min3, max3);
+        }
+
+        private void BuildChart_1line(ScottPlot.WinForms.FormsPlot chartName,
+            double[] dataX, double[] dataY1,
+            string line1_Name,
+            float lineWidth, float markerSize,
+            string axisX_Name, double minX, double maxX,
+            string axisY_Name, double minY, double maxY)
+        {
+            ScottPlot.Color semitransparent = ScottPlot.Colors.White.WithAlpha(0.3);
+            chartName.Plot.Axes.SetLimitsX(minX, maxX);
+            chartName.Plot.Axes.SetLimitsY(minY, maxY);
+            chartName.Plot.Axes.Left.Label.Text = axisY_Name;
+            chartName.Plot.Axes.Left.Label.Bold = false;
+            chartName.Plot.Axes.Bottom.Label.Text = axisX_Name;
+            chartName.Plot.Axes.Bottom.Label.Bold = false;
+            chartName.Plot.Legend.BackgroundColor = semitransparent;
+            chartName.Plot.ShowLegend(ScottPlot.Alignment.LowerRight, ScottPlot.Orientation.Vertical);
+
+            var line1 = chartName.Plot.Add.Scatter(dataX, dataY1);
+            line1.LegendText = line1_Name;
+            line1.MarkerSize = markerSize;
+            line1.LineWidth = lineWidth;
+            chartName.Refresh();
         }
 
         private decimal GetDecimal(string str, decimal defaultValue)
