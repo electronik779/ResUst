@@ -1,15 +1,11 @@
-﻿using OpenTK.Windowing.Common.Input;
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ResUst
 {
     public partial class Form1 : Form
     {
-        decimal[,,] Table = new decimal[3, 32768, 8];
+        double[,,] Table = new double[3, 32768, 8];
         int[] count = new int[3] { 0, 0, 0 };
 
         public Form1()
@@ -37,56 +33,56 @@ namespace ResUst
             formsPlot_Fkp.Plot.Clear();
             formsPlot_k2Fkp.Plot.Clear();
 
-            decimal Ld = 0;
-            decimal Fd = 0;
-            decimal Fr = 0;
-            decimal kn = 0;
-            decimal kr = 0;
-            decimal Hct = 0;
-            decimal dt = 0;
-            decimal Tras = 0;
-            decimal k1 = 1;
-            decimal k2 = 1;
-            decimal kwd;
-            decimal kwr;
-            decimal Dd;
-            decimal R;
-            decimal Qst;
-            decimal Qd = 0;
-            decimal Qr;
-            decimal Hwd;
-            decimal Hwr;
-            decimal Z;
-            decimal Hd;
-            decimal Shesi;
-            decimal DZDT;
-            decimal DQdDt;
-            decimal Hsk;
-            decimal Hr;
-            decimal Fro;
-            decimal Qst0;
-            decimal Z0;
-            decimal T = 0;
+            double Ld = 0;
+            double Fd = 0;
+            double Fr = 0;
+            double kn = 0;
+            double kr = 0;
+            double Hct = 0;
+            double dt = 0;
+            double Tras = 0;
+            double k1 = 1;
+            double k2 = 1;
+            double kwd;
+            double kwr;
+            double Dd;
+            double R;
+            double Qst;
+            double Qd = 0;
+            double Qr;
+            double Hwd;
+            double Hwr;
+            double Z;
+            double Hd;
+            double Shesi;
+            double DZDT;
+            double DQdDt;
+            double Hsk;
+            double Hr;
+            double Fro;
+            double Qst0;
+            double Z0;
+            double T = 0;
 
-            try { Ld = GetDecimal(Ldt.Text, 0m); }
+            try { Ld = GetDouble(Ldt.Text, 0); }
             catch { ErrorMsg(Ldt, "длину деривации"); }
-            try { Fd = GetDecimal(Fdt.Text, 0m); }
+            try { Fd = GetDouble(Fdt.Text, 0); }
             catch { ErrorMsg(Fdt, "площадь деривации"); }
-            try { kn = GetDecimal(knt.Text, 0m); }
+            try { kn = GetDouble(knt.Text, 0); }
             catch { ErrorMsg(knt, "коэффициент шероховатости"); }
-            try { kr = GetDecimal(krt.Text, 0m); }
+            try { kr = GetDouble(krt.Text, 0); }
             catch { ErrorMsg(krt, "коэффициент дополнительного сопротивления"); }
-            try { Qd = GetDecimal(Qdt.Text, 0m); }
+            try { Qd = GetDouble(Qdt.Text, 0); }
             catch { ErrorMsg(Qdt, "расход деривации"); }
-            try { Hct = GetDecimal(Hctt.Text, 0m); }
+            try { Hct = GetDouble(Hctt.Text, 0); }
             catch { ErrorMsg(Hctt, "статический напор"); }
-            try { dt = GetDecimal(dtt.Text, 0m); }
+            try { dt = GetDouble(dtt.Text, 0); }
             catch { ErrorMsg(dtt, "шаг расчета"); }
-            try { Tras = GetDecimal(Trast.Text, 0m); }
+            try { Tras = GetDouble(Trast.Text, 0); }
             catch { ErrorMsg(Trast, "время расчета"); }
-            try { k1 = GetDecimal(k1t.Text, 0m); }
+            try { k1 = GetDouble(k1t.Text, 0); }
             catch { ErrorMsg(k1t, "повышающий коэффициент"); }
-            try { k2 = GetDecimal(k2t.Text, 0m); }
+            try { k2 = GetDouble(k2t.Text, 0); }
             catch { ErrorMsg(k2t, "понижающий коэффициент"); }
 
             if (k1 <= 1)
@@ -109,22 +105,22 @@ namespace ResUst
                 Qst = Qd;
                 Qst0 = Qd;
 
-                Dd = (decimal)Math.Pow(4 * (double)Fd / 3.1415, 0.5);
+                Dd = Math.Pow(4 * Fd / 3.1415, 0.5);
                 R = Dd / 4;
 
                 if (kn > 0)
                 {
-                    Shesi = 1 / kn * (decimal)Math.Pow((double)R, 1 / 6);
-                    kwd = Ld / ((decimal)Math.Pow((double)Shesi, 2) * R * (decimal)Math.Pow((double)Fd, 2));
+                    Shesi = 1 / kn * Math.Pow(R, 1 / 6);
+                    kwd = Ld / (Math.Pow(Shesi, 2) * R * Math.Pow(Fd, 2));
                 }
                 else { kwd = 0; }
                 Hwd = kwd * Qst * Math.Abs(Qst);
 
-                Hsk = (decimal)Math.Pow((double)Qst, 2) / 19.62m / (decimal)Math.Pow((double)Fd, 2);
+                Hsk = Math.Pow(Qst, 2) / 19.62 / Math.Pow(Fd, 2);
 
                 Hr = Hct - Hwd;
 
-                Fro = (Ld * (decimal)Math.Pow((double)Qst, 2)) / ((Hwd + Hsk) * 19.62m * Fd * Hr);
+                Fro = (Ld * Math.Pow(Qst, 2)) / ((Hwd + Hsk) * 19.62 * Fd * Hr);
                 Fkp.Text = "= " + Math.Round(Fro, 1) + " м²";
                 Fr = Fro;
 
@@ -158,21 +154,21 @@ namespace ResUst
                             break;
                     }
                     //Debug.WriteLine("S: i= {0}, Fr= {1}", i, Fr);
-                    Dd = (decimal)Math.Pow(4 * (double)Fd / 3.1415, 0.5);
+                    Dd = Math.Pow(4 * Fd / 3.1415, 0.5);
                     R = Dd / 4;
                     if (kn > 0)
                     {
-                        Shesi = 1 / kn * (decimal)Math.Pow((double)R, 1 / 6);
-                        kwd = Ld / ((decimal)Math.Pow((double)Shesi, 2) * R * (decimal)Math.Pow((double)Fd, 2));
+                        Shesi = 1 / kn * Math.Pow(R, 1 / 6);
+                        kwd = Ld / (Math.Pow(Shesi, 2) * R * Math.Pow(Fd, 2));
                     }
                     else { kwd = 0; }
 
-                    kwr = kr / (19.62m * (decimal)Math.Pow((double)Fd, 2));
+                    kwr = kr / (19.62 * Math.Pow(Fd, 2));
 
                     Qr = 0;
                     Hwd = kwd * Qd * Math.Abs(Qd);
                     Hwr = 0;
-                    Z = -Hwd - Hwr - (decimal)Math.Pow((double)Qd, 2) / (19.62m * (decimal)Math.Pow((double)Fd, 2));
+                    Z = -Hwd - Hwr - Math.Pow(Qd, 2) / (19.62 * Math.Pow(Fd, 2));
                     Z0 = Z;
                     Z = Z0 + 1;
                     Hd = Z;
@@ -204,11 +200,11 @@ namespace ResUst
                         Qst = Qst0 * (Hct + Z0) / (Hct + Z);
                         DZDT = (Qd - Qst) / Fr;
                         Z += DZDT * dt;
-                        DQdDt = -(Z + Hwd + Hwr) * Fd * 9.81m / Ld;
+                        DQdDt = -(Z + Hwd + Hwr) * Fd * 9.81 / Ld;
                         Qd += DQdDt * dt;
                         Hwd = kwd * Qd * Math.Abs(Qd);
                         Qr = Qd - Qst;
-                        Hwr = kwr * Qr * Math.Abs(Qr) + (decimal)Math.Pow((double)Qd, 2) / (19.62m * (decimal)Math.Pow((double)Fd, 2));
+                        Hwr = kwr * Qr * Math.Abs(Qr) + Math.Pow(Qd, 2) / (19.62 * Math.Pow(Fd, 2));
                         Hd = Z + Hwr;
                         Table[i, count[i], 0] = T;
                         Table[i, count[i], 1] = Qst;
@@ -256,22 +252,22 @@ namespace ResUst
             {
                 if (max1 < (int)Table[0, i, 6]) max1 = (int)Table[0, i, 6];
                 if (min1 > (int)Table[0, i, 6]) min1 = (int)Table[0, i, 6];
-                dataX[i] = (double)Table[0, i, 0];
-                dataY1[i] = (double)Table[0, i, 6];
+                dataX[i] = Table[0, i, 0];
+                dataY1[i] = Table[0, i, 6];
                 //Debug.WriteLine("i= {0}, t= {1}, Z= {2}", i, dataX[i], dataY1[i]);
             }
             for (int i = 0; i < count[1]; i++)
             {
                 if (max2 < (int)Table[1, i, 6]) max2 = (int)Table[1, i, 6];
                 if (min2 > (int)Table[1, i, 6]) min2 = (int)Table[1, i, 6];
-                dataY2[i] = (double)Table[1, i, 6];
+                dataY2[i] = Table[1, i, 6];
                 //Debug.WriteLine("i= {0}, t= {1}, Z= {2}", i, dataX[i], dataY2[i]);
             }
             for (int i = 0; i < count[2]; i++)
             {
                 if (max3 < (int)Table[2, i, 6]) max3 = (int)Table[2, i, 6];
                 if (min3 > (int)Table[2, i, 6]) min3 = (int)Table[2, i, 6];
-                dataY3[i] = (double)Table[2, i, 6];
+                dataY3[i] = Table[2, i, 6];
                 //Debug.WriteLine("i= {0}, t= {1}, Z= {2}", i, dataX[i], dataY3[i]);
             }
             max1++;
@@ -321,15 +317,15 @@ namespace ResUst
             chartName.Refresh();
         }
 
-        private decimal GetDecimal(string str, decimal defaultValue)
+        private double GetDouble(string str, double defaultValue)
         {
-            decimal result;
+            double result;
             //Try parsing in the current culture
-            if (!decimal.TryParse(str, NumberStyles.Any, CultureInfo.CurrentCulture, out result) &&
+            if (!double.TryParse(str, NumberStyles.Any, CultureInfo.CurrentCulture, out result) &&
                 //Then try in US english
-                !decimal.TryParse(str, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out result) &&
+                !double.TryParse(str, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out result) &&
                 //Then in neutral language
-                !decimal.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+                !double.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
             {
                 result = defaultValue;
                 throw new ArgumentNullException();
@@ -472,7 +468,7 @@ namespace ResUst
                             List<string> list = new List<string>();
                             for (int k = 0; k < 8; k++)
                             {
-                                decimal tmp;
+                                double tmp;
                                 tmp = Table[i, j, k];
                                 //Debug.WriteLine("{0}, {1}, {2}", j, i, tmp);
                                 list.Add(tmp.ToString());
