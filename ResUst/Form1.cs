@@ -240,8 +240,6 @@ namespace ResUst
             // Строим графики
             int max1 = -1000000, max2 = -1000000, max3 = -1000000;
             int min1 = 1000000, min2 = 1000000, min3 = 1000000;
-            int markerSize = 0;
-            int lineWidth = 2;
 
             double[] dataX = new double[count[0]];
             double[] dataY1 = new double[count[0]];
@@ -400,7 +398,7 @@ namespace ResUst
 
                 using (StreamReader reader = new StreamReader(filename))
                 {
-                    string line;
+                    string? line;
                     while ((line = reader.ReadLine()) != null)
                     {
                         List<string> row = line.Split(';').ToList();
