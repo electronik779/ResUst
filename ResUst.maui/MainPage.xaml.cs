@@ -15,11 +15,11 @@ namespace ResUst.maui
     {
         public ObservableCollection<TableRow> DischargesData { get; set; } = new();
 
-        List<string> linesTitles1 = new List<string> { "Уровень в УР, Z", "Давление в деривации, Hд" };
-        List<string> linesTitles2 = new List<string> { "Расход турбинных водоводов, Qт", "Расход деривации, Qд" };
+        List<string> linesTitlesHead = new List<string> { "Уровень в УР, Z", "Давление в деривации, Hд" };
+        List<string> linesTitlesDischarge = new List<string> { "Расход турбинных водоводов, Qт", "Расход деривации, Qд" };
 
-        List<string> AxisTitles1 = new List<string> { "Время, с", "м" };
-        List<string> AxisTitles2 = new List<string> { "Время, с", "м³/с" };
+        List<string> AxisTitlesHead = new List<string> { "Время, с", "м (относительно бьефа)" };
+        List<string> AxisTitlesDischarge = new List<string> { "Время, с", "м³/с" };
 
         // Страница с проектом и помощью
         private Uri uri = new Uri("https://github.com/electronik779/ResUst");
@@ -48,9 +48,11 @@ namespace ResUst.maui
             {
                 { 0, 1 },
                 { 0, 0 },
+                { 0, 0 }
             };
 
-            CreateGraph(HeadSeries, zeroData, linesTitles1, AxisTitles1);
+            CreateGraph(HeadSeries, zeroData, linesTitlesHead, AxisTitlesHead);
+            CreateGraph(DischargeSeries, zeroData, linesTitlesDischarge, AxisTitlesDischarge);
         }
 
         private async void Open_Click(object sender, EventArgs e)
@@ -83,7 +85,7 @@ namespace ResUst.maui
                         }
                     }
                 }
-                if (blocks.Count < 4)
+                if (blocks.Count < 3)
                 {
                     await DisplayAlertAsync("Ошибка!", "Файл поврежден.", "ОК");
                     return;
@@ -96,44 +98,14 @@ namespace ResUst.maui
                 nd.Text = b1.ElementAtOrDefault(2) ?? "0";
 
                 var b2 = blocks[1];
-                fr.Text = b2.ElementAtOrDefault(0) ?? "0";
-                dz.Text = b2.ElementAtOrDefault(1) ?? "0";
+                dz.Text = b2.ElementAtOrDefault(0) ?? "0";
 
                 var b3 = blocks[2];
-                var timeLow = b3.Take(dischargeLowCount).ToList();
-                var dischargeLow = b3.Skip(dischargeLowCount).Take(dischargeLowCount).ToList();
-                for (int i = 0; i < dischargeLowCount; i++)
-                {
-                    // Строка 0
-                    string rawValue1 = timeLow[i];
-                    string processedValue1 = "0";
-                    if (!string.IsNullOrWhiteSpace(rawValue1))
-                    {
-                        rawValue1 = rawValue1.Replace(',', '.');
-                        if (double.TryParse(rawValue1, NumberStyles.Any, culture, out double value1))
-                        {
-                            processedValue1 = value1.ToString(culture);
-                        }
-                    }
-                    DischargesData[0].SetCell(i, processedValue1);
-
-                    // Строка 1
-                    string? rawValue2 = i < dischargeLowCount ? dischargeLow[i] : null;
-                    string processedValue2 = "0";
-                    if (!string.IsNullOrWhiteSpace(rawValue2))
-                    {
-                        rawValue2 = rawValue2.Replace(',', '.');
-                        if (double.TryParse(rawValue2, NumberStyles.Any, culture, out double value2))
-                        {
-                            processedValue2 = value2.ToString(culture);
-                        }
-                    }
-                    DischargesData[1].SetCell(i, processedValue2);
-                }
-
-                var b4 = blocks[3];
-                dt.Text = b4.ElementAtOrDefault(0) ?? "0";
-                tr.Text = b4.ElementAtOrDefault(1) ?? "0";
+                qd.Text = b3.ElementAtOrDefault(0) ?? "0";
+                hct.Text = b3.ElementAtOrDefault(1) ?? "0";
+                dt.Text = b3.ElementAtOrDefault(2) ?? "0";
+                tr.Text = b3.ElementAtOrDefault(3) ?? "0";
+                kfr.Text = b3.ElementAtOrDefault(4) ?? "0";
             }
             catch (Exception ex)
             {
@@ -155,20 +127,19 @@ namespace ResUst.maui
                 });
 
                 string b2 = string.Join(";", new[] {
-                    fr.Text.ToString(culture),
                     dz.Text.ToString(culture)
                 });
 
-                string b3 = GetRowData(DischargesData, 0, dischargeLowCount) + ";" +
-                            GetRowData(DischargesData, 1, dischargeLowCount);
-
-                string b4 = string.Join(";", new[] {
+                string b3 = string.Join(";", new[] {
+                    qd.Text.ToString(culture),
+                    hct.Text.ToString(culture),
                     dt.Text.ToString(culture),
-                    tr.Text.ToString(culture)
+                    tr.Text.ToString(culture),
+                    kfr.Text.ToString(culture)
                 });
 
                 // Сборка и сохранение
-                string content = string.Join(Environment.NewLine, new[] { b1, b2, b3, b4 });
+                string content = string.Join(Environment.NewLine, new[] { b1, b2, b3 });
 
                 using var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
                 var result = await FileSaver.Default.SaveAsync("Initial_data.csv", stream, CancellationToken.None);
@@ -187,42 +158,6 @@ namespace ResUst.maui
                     "OK");
             }
         }
-
-        private string GetRowData(ObservableCollection<TableRow> table, int rowIndex, int count)
-        {
-            var culture = CultureInfo.InvariantCulture;
-
-            // Проверяем, существует ли вообще строка с таким индексом в таблице
-            if (rowIndex >= table.Count)
-            {
-                // Возвращаем строку из нулей, если строки нет
-                return string.Join(";", Enumerable.Repeat("0", count));
-            }
-
-            var row = table[rowIndex];
-
-            return string.Join(";", Enumerable.Range(0, count).Select(cellIndex =>
-            {
-                // Проверяем, что индекс ячейки не выходит за границы списка Cells
-                if (cellIndex < row.Cells.Count)
-                {
-                    string rawValue = row.Cells[cellIndex];
-
-                    if (!string.IsNullOrWhiteSpace(rawValue))
-                    {
-                        // Принудительно меняем запятую на точку для InvariantCulture
-                        rawValue = rawValue.Replace(',', '.');
-
-                        if (double.TryParse(rawValue, NumberStyles.Any, culture, out double val))
-                        {
-                            return val.ToString(culture);
-                        }
-                    }
-                }
-                return "0"; // Если ячейки нет или там не число
-            }));
-        }
-
 
         private async void Execute_Click(object sender, EventArgs e)
         {
@@ -303,8 +238,8 @@ namespace ResUst.maui
 
                 surgeTankHead = staticHead - diversionHeadLoss;
                 dynamicPressure = Math.Pow(penstockDischarge, 2) / 19.62 / Math.Pow(diversionArea, 2);
-                surgeTankCriticalArea = (diversionLenght * Math.Pow(penstockDischarge, 2)) / 
-                    ((diversionHeadLoss + dynamicPressure) * 19.62 * diversionArea * surgeTankHead);
+                surgeTankCriticalArea = Math.Abs((diversionLenght * Math.Pow(penstockDischarge, 2)) / 
+                    ((diversionHeadLoss + dynamicPressure) * 19.62 * diversionArea * surgeTankHead));
                 surgeTankArea = surgeTankAreaCoefficient * surgeTankCriticalArea;
                 fkr.Text = "=" + surgeTankCriticalArea.ToString("N2");
                 fr.Text = surgeTankArea.ToString("N2");
@@ -375,8 +310,17 @@ namespace ResUst.maui
             {
                 resultGraphData[0, i] = resultData[i, 0];
                 resultGraphData[1, i] = resultData[i, 6];
+                resultGraphData[2, i] = resultData[i, 7];
             }
-            CreateGraph(HeadSeries, resultGraphData, linesTitles1, AxisTitles1);
+            CreateGraph(HeadSeries, resultGraphData, linesTitlesHead, AxisTitlesHead);
+
+            for (int i = 0; i < step; i++)
+            {
+                resultGraphData[0, i] = resultData[i, 0];
+                resultGraphData[1, i] = resultData[i, 1];
+                resultGraphData[2, i] = resultData[i, 2];
+            }
+            CreateGraph(DischargeSeries, resultGraphData, linesTitlesDischarge, AxisTitlesDischarge);
 
             saveResults_button.IsEnabled = true;
         }
@@ -471,31 +415,6 @@ namespace ResUst.maui
             return field;
         }
 
-        // D - текущее время
-        // N - количество точек массива
-        // data - массив [2,N], 0,N - время, 1,N - расход
-        private double Int11(double D, int N, double[,] data)
-        {
-            double V = -1;
-            int i;
-            for (i = 1; i < N; i++)
-            {
-                if (D - data[0, i] <= 0)
-                {
-                    int i1 = i - 1;
-                    V = (data[1, i] * (D - data[0, i1]) - data[1, i1] * (D - data[0, i])) /
-                        (data[0, i] - data[0, i1]);
-                    break;
-                }
-            }
-            if (V == -1)
-            {
-                V = (data[1, 2] * (D - data[0, 1]) - data[1, 1] * (D - data[0, 2])) /
-                    (data[0, 2] - data[0, 1]);
-            }
-            return V;
-        }
-
         private void CreateGraph(CartesianChart _chartName, double[,] _data,
             List<string> _names, List<string> _axisNames)
         {
@@ -509,10 +428,10 @@ namespace ResUst.maui
             {
                 double x = _data[0, i]; // Значение по оси X общее для обеих линий
                 double y1 = _data[1, i]; // Значение Y для 1-й линии
-                //double y2 = _data[2, i]; // Значение Y для 2-й линии
+                double y2 = _data[2, i]; // Значение Y для 2-й линии
 
                 line1Points.Add(new ObservablePoint(x, y1));
-                //line2Points.Add(new ObservablePoint(x, y2));
+                line2Points.Add(new ObservablePoint(x, y2));
             }
 
             // Создаем серии данных
@@ -526,14 +445,14 @@ namespace ResUst.maui
                     LineSmoothness = 0.5,
                     Fill = null
                 },
-                //new LineSeries<ObservablePoint>
-                //{
-                //    Name = _names[1],
-                //    Values = line2Points,
-                //    GeometrySize = 0,
-                //    LineSmoothness = 0.5,
-                //    Fill = null
-                //}
+                new LineSeries<ObservablePoint>
+                {
+                    Name = _names[1],
+                    Values = line2Points,
+                    GeometrySize = 0,
+                    LineSmoothness = 0.5,
+                    Fill = null
+                }
             };
 
             _chartName.XAxes = new Axis[]

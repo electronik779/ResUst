@@ -233,6 +233,8 @@
                 <Image Grid.Row="6"
                        Grid.Column="0"
                        Source="fkr.png"
+                       WidthRequest="200"
+                       HorizontalOptions="Center"
                        Aspect="AspectFit"/>
                 <Label Grid.Row="6"
                        Grid.Column="1"
@@ -257,13 +259,14 @@
 
                 <Label Grid.Row="8"
                        Grid.Column="0"
-                       Text="- площадь Fр = Кр · Fкр ="
+                       Text="- площадь Fр = Кр · Fкр"
                        Style="{StaticResource LabelStyle}"/>
                 <Label Grid.Row="8"
                        Grid.Column="1"
-                       Text=" -"
+                       Text="= -"
                        x:Name="fr"
-                       Style="{StaticResource LabelStyle}"/>
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"/>
                 <Label Grid.Row="8"
                        Grid.Column="2"
                        Text="м²"
@@ -341,7 +344,7 @@
 
                 <lvc:CartesianChart Grid.Row="0"
                                     Grid.Column="3"
-                                    Grid.RowSpan="14"
+                                    Grid.RowSpan="7"
                                     LegendPosition="Bottom"
                                     MinimumWidthRequest="700"
                                     LegendTextSize="12"
@@ -349,7 +352,15 @@
                                     x:Name="HeadSeries">
                 </lvc:CartesianChart>
 
-
+                <lvc:CartesianChart Grid.Row="7"
+                                    Grid.Column="3"
+                                    Grid.RowSpan="7"
+                                    LegendPosition="Bottom"
+                                    MinimumWidthRequest="700"
+                                    LegendTextSize="12"
+                                    TooltipTextSize="12"
+                                    x:Name="DischargeSeries">
+                </lvc:CartesianChart>
 
             </Grid>
         </HorizontalStackLayout>
