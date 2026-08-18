@@ -242,7 +242,7 @@ namespace ResUst.maui
                     ((diversionHeadLoss + dynamicPressure) * 19.62 * diversionArea * surgeTankHead));
                 surgeTankArea = surgeTankAreaCoefficient * surgeTankCriticalArea;
                 fkr.Text = "=" + surgeTankCriticalArea.ToString("N2");
-                fr.Text = surgeTankArea.ToString("N2");
+                fr.Text = "=" + surgeTankArea.ToString("N2");
 
                 surgeTankElevation = -diversionHeadLoss - surgeTankHeadLoss - 
                     Math.Pow(diversionDischarge, 2) / (19.62 * Math.Pow(diversionArea, 2));
